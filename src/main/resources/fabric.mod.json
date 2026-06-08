@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "ice_boat_racing_sounds",
+	"version": "${version}",
+	"name": "Ice Boat Racing Sounds",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"CodingBibber"
+	],
+	"contact": {
+		"homepage": "https://github.com/BibberCode",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/ice_boat_racing_sounds/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.example.IceBoatRacingSounds"
+		],
+		"client": [
+			"com.example.client.IceBoatRacingSoundsClient"
+		]
+	},
+	"mixins": [
+		"ice-boat-racing-sounds.mixins.json",
+		{
+			"config": "ice-boat-racing-sounds.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

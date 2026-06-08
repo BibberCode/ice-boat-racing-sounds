@@ -1,0 +1,28 @@
+{
+  "engine_start": {
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:engine_start",
+        "stream": false
+      }
+    ]
+  },
+
+  "engine_stand": {
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:engine_stand",
+        "stream": false
+      }
+    ]
+  },
+
+  "engine_turnoff": {
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:engine_turnoff",
+        "stream": false
+      }
+    ]
+  }
+}
