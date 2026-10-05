@@ -1,5 +1,6 @@
 {
   "engine_start": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.engine_start",
     "sounds": [
       {
         "name": "ice_boat_racing_sounds:engine_start",
@@ -9,6 +10,7 @@
   },
 
   "engine_stand": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.engine_stand",
     "sounds": [
       {
         "name": "ice_boat_racing_sounds:engine_stand",
@@ -18,6 +20,7 @@
   },
 
   "engine_turnoff": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.engine_turnoff",
     "sounds": [
       {
         "name": "ice_boat_racing_sounds:engine_turnoff",

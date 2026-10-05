@@ -1,4 +1,4 @@
-package com.example;
+package de.codingbibber.iceboatracesounds;
 
 import net.fabricmc.api.ModInitializer;
 

@@ -3,32 +3,24 @@
 	"id": "ice_boat_racing_sounds",
 	"version": "${version}",
 	"name": "Ice Boat Racing Sounds",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Motor-Sounds für Boote (ideal für Ice-Boat-Racing): Start-Sound, drehzahlabhängiger Loop und Abstell-Sound.",
 	"authors": [
 		"CodingBibber"
 	],
 	"contact": {
-		"homepage": "https://github.com/BibberCode",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/BibberCode"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/ice_boat_racing_sounds/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.IceBoatRacingSounds"
+			"de.codingbibber.iceboatracesounds.IceBoatRacingSounds"
 		],
 		"client": [
-			"com.example.client.IceBoatRacingSoundsClient"
+			"de.codingbibber.iceboatracesounds.client.IceBoatRacingSoundsClient"
 		]
 	},
-	"mixins": [
-		"ice-boat-racing-sounds.mixins.json",
-		{
-			"config": "ice-boat-racing-sounds.client.mixins.json",
-			"environment": "client"
-		}
-	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~1.21.4",
