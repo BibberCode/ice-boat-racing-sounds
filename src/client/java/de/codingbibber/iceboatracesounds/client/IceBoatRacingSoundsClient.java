@@ -12,11 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Motor nur auf Eis (Start-Stopp-Automatik): Betritt das Boot Eis, springt der
- * Motor nach kurzer Entprellung an ({@link BoatEngineAudio}); verlässt es das
- * Eis oder steigt der Spieler aus, geht er wieder aus. Auf Wasser bleibt es
- * still – dort paddelt man vanilla. Gilt für alle Boote (AbstractBoatEntity
- * deckt auch Chest-Boote ab).
+ * Dünne Einstiegslogik: Motor nur auf Eis (Start-Stopp-Automatik mit
+ * Entprellung), eigentliche Klangsteuerung im {@link BoatAudioController}.
+ * Auf Wasser bleibt es still – dort paddelt man vanilla. Ändert keinerlei
+ * Gameplay, nur Sounds.
  */
 public class IceBoatRacingSoundsClient implements ClientModInitializer {
 
@@ -28,26 +27,38 @@ public class IceBoatRacingSoundsClient implements ClientModInitializer {
     private static final String[] REQUIRED_FILES = {
             "sounds/engine_start.ogg",
             "sounds/engine_loop_low.ogg",
+            "sounds/engine_loop_mid.ogg",
             "sounds/engine_loop_high.ogg",
+            "sounds/engine_loop_redline.ogg",
+            "sounds/turbo_loop.ogg",
             "sounds/engine_shift.ogg",
             "sounds/engine_backfire.ogg",
+            "sounds/blowoff.ogg",
+            "sounds/impact_light.ogg",
+            "sounds/impact_heavy.ogg",
+            "sounds/landing.ogg",
             "sounds/engine_turnoff.ogg",
             "sounds/wind_loop.ogg",
             "sounds/skid_loop.ogg"
     };
 
+    private ModConfig config;
     private boolean wasInBoat = false;
     private boolean iceActive = false;
     private int iceStableTicks = 0;
-    private BoatEngineAudio engineAudio;
+    private BoatAudioController controller;
 
     @Override
     public void onInitializeClient() {
+        config = ModConfig.load();
         LOGGER.info("[ice-boat-racing-sounds] Client init ok – Motor läuft nur auf Eis.");
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null || client.world == null) {
-                // z.B. Disconnect: alles sauber beenden, damit nichts hängen bleibt
-                stopEngine(client, false);
+                // Tod/Disconnect/Teleport/Weltwechsel: sofort und leise alles stoppen.
+                if (controller != null) {
+                    controller.stopNow();
+                    controller = null;
+                }
                 wasInBoat = false;
                 iceActive = false;
                 iceStableTicks = 0;
@@ -58,9 +69,15 @@ public class IceBoatRacingSoundsClient implements ClientModInitializer {
             boolean inBoat = vehicle instanceof AbstractBoatEntity;
 
             if (!inBoat) {
-                if (wasInBoat) {
-                    LOGGER.info("[ice-boat-racing-sounds] Boot verlassen – Motor aus.");
-                    stopEngine(client, true);
+                if (controller != null) {
+                    if (wasInBoat) {
+                        LOGGER.info("[ice-boat-racing-sounds] Boot verlassen – Motor aus.");
+                    }
+                    controller.requestStop(true);
+                    controller.tick();
+                    if (!controller.isAlive()) {
+                        controller = null;
+                    }
                 }
                 wasInBoat = false;
                 iceActive = false;
@@ -77,33 +94,24 @@ public class IceBoatRacingSoundsClient implements ClientModInitializer {
                         checkResources(client);
                         LOGGER.info("[ice-boat-racing-sounds] Eis erkannt – starte Motor.");
                         client.getSoundManager().play(PositionedSoundInstance.master(ModSounds.ENGINE_START, 1.0f));
-                        engineAudio = new BoatEngineAudio(client);
-                    } else {
+                        controller = new BoatAudioController(client, config);
+                    } else if (controller != null) {
                         LOGGER.info("[ice-boat-racing-sounds] Eis verlassen – Motor aus.");
-                        stopEngine(client, true);
+                        controller.requestStop(true);
                     }
                 }
             } else {
                 iceStableTicks = 0;
             }
 
-            if (engineAudio != null) {
-                engineAudio.tick();
+            if (controller != null) {
+                controller.tick();
+                if (!controller.isAlive()) {
+                    controller = null;
+                }
             }
             wasInBoat = true;
         });
-    }
-
-    private void stopEngine(MinecraftClient client, boolean playTurnoff) {
-        boolean hadEngine = engineAudio != null;
-        if (hadEngine) {
-            engineAudio.stop();
-            engineAudio = null;
-        }
-        // Abstell-Sound nur, wenn der Motor wirklich lief (nicht auf Wasser).
-        if (playTurnoff && hadEngine) {
-            client.getSoundManager().play(PositionedSoundInstance.master(ModSounds.ENGINE_TURNOFF, 1.0f));
-        }
     }
 
     /**

@@ -1,9 +1,16 @@
 {
   "subtitles.ice_boat_racing_sounds.engine_start": "Boat engine starts",
   "subtitles.ice_boat_racing_sounds.engine_loop_low": "Boat engine hums",
+  "subtitles.ice_boat_racing_sounds.engine_loop_mid": "Boat engine revs",
   "subtitles.ice_boat_racing_sounds.engine_loop_high": "Boat engine roars",
+  "subtitles.ice_boat_racing_sounds.engine_loop_redline": "Boat engine screams",
+  "subtitles.ice_boat_racing_sounds.turbo_loop": "Turbo whines",
   "subtitles.ice_boat_racing_sounds.engine_shift": "Boat engine shifts gear",
   "subtitles.ice_boat_racing_sounds.engine_backfire": "Boat engine backfires",
+  "subtitles.ice_boat_racing_sounds.blowoff": "Turbo blows off",
+  "subtitles.ice_boat_racing_sounds.impact_light": "Boat bumps",
+  "subtitles.ice_boat_racing_sounds.impact_heavy": "Boat crashes",
+  "subtitles.ice_boat_racing_sounds.landing": "Boat lands",
   "subtitles.ice_boat_racing_sounds.engine_turnoff": "Boat engine stops",
   "subtitles.ice_boat_racing_sounds.wind_loop": "Wind rushes",
   "subtitles.ice_boat_racing_sounds.skid_loop": "Boat skids on ice"

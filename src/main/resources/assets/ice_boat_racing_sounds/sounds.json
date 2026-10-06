@@ -19,11 +19,41 @@
     ]
   },
 
+  "engine_loop_mid": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.engine_loop_mid",
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:engine_loop_mid",
+        "stream": false
+      }
+    ]
+  },
+
   "engine_loop_high": {
     "subtitle": "subtitles.ice_boat_racing_sounds.engine_loop_high",
     "sounds": [
       {
         "name": "ice_boat_racing_sounds:engine_loop_high",
+        "stream": false
+      }
+    ]
+  },
+
+  "engine_loop_redline": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.engine_loop_redline",
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:engine_loop_redline",
+        "stream": false
+      }
+    ]
+  },
+
+  "turbo_loop": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.turbo_loop",
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:turbo_loop",
         "stream": false
       }
     ]
@@ -44,6 +74,46 @@
     "sounds": [
       {
         "name": "ice_boat_racing_sounds:engine_backfire",
+        "stream": false
+      }
+    ]
+  },
+
+  "blowoff": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.blowoff",
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:blowoff",
+        "stream": false
+      }
+    ]
+  },
+
+  "impact_light": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.impact_light",
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:impact_light",
+        "stream": false
+      }
+    ]
+  },
+
+  "impact_heavy": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.impact_heavy",
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:impact_heavy",
+        "stream": false
+      }
+    ]
+  },
+
+  "landing": {
+    "subtitle": "subtitles.ice_boat_racing_sounds.landing",
+    "sounds": [
+      {
+        "name": "ice_boat_racing_sounds:landing",
         "stream": false
       }
     ]

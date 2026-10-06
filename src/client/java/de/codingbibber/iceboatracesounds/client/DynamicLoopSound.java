@@ -2,16 +2,19 @@ package de.codingbibber.iceboatracesounds.client;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MovingSoundInstance;
+import net.minecraft.entity.Entity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 
 /**
- * Ein einzelner steuerbarer Endlos-Loop. Die {@link BoatEngineAudio} setzt
- * pro Tick Volume/Pitch, die Position folgt dem Spieler von selbst.
+ * Ein einzelner steuerbarer Endlos-Loop. Die Audio-Module setzen pro Tick
+ * Volume/Pitch; die Position folgt wahlweise dem Spieler oder per
+ * {@link #setFollow(Entity)} einer anderen Entity (z. B. fremde Boote).
  */
 public class DynamicLoopSound extends MovingSoundInstance {
 
     private final MinecraftClient client;
+    private Entity follow;
 
     public DynamicLoopSound(MinecraftClient client, SoundEvent sound) {
         super(sound, SoundCategory.PLAYERS,
@@ -35,6 +38,11 @@ public class DynamicLoopSound extends MovingSoundInstance {
         setDone();
     }
 
+    /** Folgt ab jetzt dieser Entity statt dem Spieler (null = Spieler). */
+    public void setFollow(Entity follow) {
+        this.follow = follow;
+    }
+
     @Override
     public boolean canPlay() {
         return client.player != null;
@@ -52,12 +60,13 @@ public class DynamicLoopSound extends MovingSoundInstance {
 
     @Override
     public void tick() {
-        if (client.player == null) {
+        Entity target = follow != null ? follow : client.player;
+        if (target == null || (follow != null && follow.isRemoved())) {
             setDone();
             return;
         }
-        this.x = client.player.getX();
-        this.y = client.player.getY();
-        this.z = client.player.getZ();
+        this.x = target.getX();
+        this.y = target.getY();
+        this.z = target.getZ();
     }
 }

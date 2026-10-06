@@ -2,19 +2,42 @@
 
 Fabric-Mod für Minecraft 1.21.4: Boote klingen wie Rennautos auf Eis.
 
+**Wichtig: Der Mod verändert ausschließlich das Audioerlebnis.** Boot-Tempo,
+Physik, Steuerung, Kollisionen, Items, Blöcke und alle Spielregeln bleiben
+exakt Vanilla. „Gänge“, „RPM“, „Load“ oder „Drift“ sind intern simulierte
+Werte fürs Sounddesign – sie beeinflussen niemals die tatsächliche Bewegung.
+
 ## Verhalten (Racing-Dynamik, nur auf Eis)
 
-Der Motor läuft **nur auf Eis** (Eis, Packed, Blau, Frosted) – mit Start-Stopp-Automatik und 0,5 s Entprellung an der Eiskante. Auf Wasser bleibt es still, dort paddelt man vanilla. Die Vanilla-Paddelgeräusche (`paddle_water`, `paddle_land`) sind auf Eis stummgeschaltet.
+Der Motor läuft **nur auf Eis** (Eis, Packed, Blau, Frosted) – mit
+Start-Stopp-Automatik und 0,5 s Entprellung an der Eiskante. Auf Wasser bleibt
+es still, dort paddelt man vanilla. Die Vanilla-Paddelgeräusche
+(`paddle_water`, `paddle_land`) sind auf Eis stummgeschaltet.
 
 - **Eis berühren** → `engine_start`: Anlasser kurbelt, Zündung fängt, Drehzahl flackert hoch
-- **Fahren** → 5 kurze Gänge (Schalten schon ab ~8 m/s): Drehzahl steigt pro Gang hörbar, beim Schalten (hoch wie runter) gibt es einen Sound mit kurzem Drehzahleinbruch; am Limit stottert der Begrenzer (Zündung setzt aus). Die Drehzahl atmet zusätzlich (Lastwechsel)
-- **Schubknallen** → wer bei hoher Drehzahl vom Gas geht, bekommt 1–3 Auspuff-Pops (`engine_backfire`)
-- **Motor-Layer** → `engine_loop_low` (tiefes Blubbern) + `engine_loop_high` (brüllendes Top-End) werden per Crossfade nach Drehzahl gemischt; Pitch und Volume folgen dem Gas (W-Taste)
-- **Fahrtwind** → `wind_loop`, wächst quadratisch mit der Geschwindigkeit und ist böig (zufällige Stärke-Schwankungen)
-- **Drift** → `skid_loop`: Eis-Kratzen plus Squeal, sobald das Boot seitlich rutscht
-- **Aussteigen / Eis verlassen** → alle Layer stoppen + `engine_turnoff` (Drehzahl fällt, Stottern, aus)
+- **Engine Load** → Vollgas + Beschleunigung klingt belastet/aggressiv (Turbo-Jaulen, hellere Layer), konstantes Tempo stabil, Gas weg ruhig mit Overrun-Charakter; Launch aus langsamem Tempo bekommt extra Schub
+- **Gänge (5, simuliert)** → Schalten schon ab ~8 m/s, hoch wie runter; Hochschalten mit RPM-Drop + Schaltknall, Runterschalten mit Rev-Matching-Blip; am Limit stottert der Begrenzer (Zündung setzt aus)
+- **Motor-Layer** → Low/Mid/High/Redline blenden weich über (−keine Klicks); Pitch/Volume folgen Gas, Load und Bootstyp (Chest etwas tiefer, Floß etwas heller)
+- **Turbo/Intake** → dezentes Jaulen unter Last, Blow-off-Zischen bei hartem Gaswegnehmen aus hoher Drehzahl
+- **Schubknallen** → nach hoher Last + Gaswegnehmen 1–3 Pops in Stufen, mit Cooldown
+- **Fahrtwind** → wächst mit Tempo, böig, plus Umgebungs-Offenheit (Tunnel trägt leicht)
+- **Drift/Slide** → Kratzen + Squeal in Stufen nach seitlicher Bewegung, mit Eis-Sorten-Charakter (Blau heller, Frosted weicher)
+- **Kollision/Landung** → leichte/starke Impacts bei Vanilla-Kollisionen (beobachteter Tempoverlust, Cooldown), kurzer Landing-Sound nach Flugphase (nicht über Wasser)
+- **Fremde Boote** → bis zu 3 Boote in der Nähe sind leise hörbar (Entfernung → Lautstärke, dezenter Doppler)
+- **Aussteigen / Eis verlassen** → weiches Ausblenden statt hartem Cut + `engine_turnoff`
 
-Gilt für alle Boote (`AbstractBoatEntity`, also auch Chest-Boote). Die Sounds sind clientseitig und nur für den Fahrer hörbar. Alle OGGs sind selbst synthetisiert (`/tmp/opencode/synth_engine.py`, lizenzfrei) und nahtlos loopbar.
+Gilt für alle Boote und Flöße (`AbstractBoatEntity`: Boote, Chest-Boote, Rafts,
+Chest-Rafts). Alles clientseitig. Alle OGGs sind selbst synthetisiert
+(lizenzfrei) und nahtlos loopbar.
+
+## Konfiguration
+
+`config/ice-boat-racing-sounds.json` (wird beim ersten Start angelegt):
+
+- Lautstärken: engine, wind, skid, turbo, backfire, shift, effects, nearby
+- Schalter: doppler, surfaceAudio, nearbyBoats, debugAudio (Audio-Telemetrie ins Log, kein HUD)
+
+Alle Einstellungen wirken nur auf Audio.
 
 ## Sounds austauschen
 
