@@ -21,6 +21,12 @@
 			"de.codingbibber.iceboatracesounds.client.IceBoatRacingSoundsClient"
 		]
 	},
+	"mixins": [
+		{
+			"config": "ice-boat-racing-sounds.client.mixins.json",
+			"environment": "client"
+		}
+	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~1.21.4",

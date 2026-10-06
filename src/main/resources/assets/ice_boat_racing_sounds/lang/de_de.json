@@ -1,5 +1,10 @@
 {
   "subtitles.ice_boat_racing_sounds.engine_start": "Bootsmotor startet",
-  "subtitles.ice_boat_racing_sounds.engine_stand": "Bootsmotor brummt",
-  "subtitles.ice_boat_racing_sounds.engine_turnoff": "Bootsmotor geht aus"
+  "subtitles.ice_boat_racing_sounds.engine_loop_low": "Bootsmotor brummt",
+  "subtitles.ice_boat_racing_sounds.engine_loop_high": "Bootsmotor heult auf",
+  "subtitles.ice_boat_racing_sounds.engine_shift": "Bootsmotor schaltet",
+  "subtitles.ice_boat_racing_sounds.engine_backfire": "Bootsmotor knallt",
+  "subtitles.ice_boat_racing_sounds.engine_turnoff": "Bootsmotor geht aus",
+  "subtitles.ice_boat_racing_sounds.wind_loop": "Fahrtwind rauscht",
+  "subtitles.ice_boat_racing_sounds.skid_loop": "Boot rutscht über Eis"
 }
